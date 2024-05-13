@@ -10,10 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
-
-
-def expr(x, f):
+def expr(x, f):  # вычисление функции
     return eval(f)
 
 
@@ -26,26 +23,26 @@ def check_time(start_time):
 
 
 def pr_m(a, b, n, h, express):
-
     start_time = time.time()
 
-    fx = [a+i*h for i in range(n)]
-    fx2 = [expr(i+h/2, express) for i in fx]
+    fx = [a + i * h for i in range(n)]
+    fx2 = [expr(i + h / 2, express) for i in fx]
     answer = h * sum(fx2)
 
     time_array = check_time(start_time)
 
-    return {"answer": answer, "elapsed_time": time_array["elapsed_time"], "start_time": time_array["start_time"], "end_time": time_array["end_time"]}
+    return {"answer": answer, "elapsed_time": time_array["elapsed_time"], "start_time": time_array["start_time"],
+            "end_time": time_array["end_time"]}
 
 
 def trap_m(a, b, n, h, express):
     start_time = time.time()
 
-    fx = [a + i * h for i in range(n+1)]
+    fx = [a + i * h for i in range(n + 1)]
     fx2 = [expr(i, express) for i in fx]
 
     ans = fx2[1:-1]
-    ans.append((fx2[0]+fx2[-1])/2)
+    ans.append((fx2[0] + fx2[-1]) / 2)
 
     answer = h * sum(ans)
 
@@ -58,14 +55,14 @@ def trap_m(a, b, n, h, express):
 def simpson_m(a, b, n, h, express):
     start_time = time.time()
 
-    fx = [a + i * h for i in range(n+1)]
+    fx = [a + i * h for i in range(n + 1)]
     fx2 = [expr(i, express) for i in fx]
 
     arr = [fx2[0], fx2[-1],
-           *[i*4 for c, i in enumerate(fx2[1:-1]) if c % 2 == 0],
-           *[i*2 for c, i in enumerate(fx2[1:-1]) if c % 2 != 0]]
+           *[i * 4 for c, i in enumerate(fx2[1:-1]) if c % 2 == 0],
+           *[i * 2 for c, i in enumerate(fx2[1:-1]) if c % 2 != 0]]
 
-    answer = (h/3)*sum(arr)
+    answer = (h / 3) * sum(arr)
 
     time_array = check_time(start_time)
 
@@ -74,7 +71,6 @@ def simpson_m(a, b, n, h, express):
 
 
 def get_graph(a, b, f):
-
     #print(x)
     x = np.linspace(a, b, 50)
     Y = eval(f)
@@ -86,8 +82,8 @@ def get_graph(a, b, f):
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     plt.fill_between(x, Y, np.zeros_like(Y), color='yellowgreen')
-    plt.xlim(-abs(max(Y)+10), abs(max(Y)+10))
-    plt.ylim(-abs(max(Y)+10), abs(max(Y)+10))
+    plt.xlim(-abs(max(Y) + 10), abs(max(Y) + 10))
+    plt.ylim(-abs(max(Y) + 10), abs(max(Y) + 10))
     plt.show()
 
 
@@ -113,7 +109,6 @@ class Integral(QMainWindow):
 
     def about(self):
         about_window.show()
-
 
     def exec(self):
         try:
